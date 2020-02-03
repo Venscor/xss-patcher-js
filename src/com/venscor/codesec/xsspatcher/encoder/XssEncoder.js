@@ -1,5 +1,4 @@
 var $namespace = function (fullNS) {
-    // 将命名空间切成N部分, 比如Grandsoft、GEA等
     var nsArray = fullNS.split('.');
     var sEval = "";
     var sNS = "";

@@ -1,72 +1,17 @@
-var $namespace = function (name, separator, container) {
-    var ns = name.split(separator || '.'),
-        o = container || window,
-        i,
-        len;
-    for (i = 0, len = ns.length; i < len; i++) {
-        o = o[ns[i]] = o[ns[i]] || {};
+var $namespace = function (fullNS) {
+    // 将命名空间切成N部分, 比如Grandsoft、GEA等
+    var nsArray = fullNS.split('.');
+    var sEval = "";
+    var sNS = "";
+    for (var i = 0; i < nsArray.length; i++) {
+        if (i != 0) sNS += ".";
+        sNS += nsArray[i];
+        sEval += "if (typeof(" + sNS + ") == 'undefined') " + sNS + " = new Object();"
     }
-    return o;
+    if (sEval != "") eval(sEval);
 };
 
-$namespace("com.venscor.codesec.xsspatcher.encoder")
-com.venscor.codesec.xsspatcher.encoder.XSSEncoder = function () {
-    var _htmlEntityEncoder = new com.venscor.codesec.xsspatcher.encoder.HtmlEntityEncoder();
-    var _htmlAttributeEncoder = new com.venscor.codesec.xsspatcher.encoder.HtmlAttributeEncoder();
-    var _cssEncoder = new com.venscor.codesec.xsspatcher.encoder.CSSEncoder();
-    var _urlEncoder = new com.venscor.codesec.xsspatcher.encoder.URLEncoder();
-    var _jsonEncoder = new com.venscor.codesec.xsspatcher.encoder.JSONEncoder();
-    var _javascriptEncoder = new com.venscor.codesec.xsspatcher.encoder.JavascriptEncoder();
-    var _unquatedJavascriptEncoder = new com.venscor.codesec.xsspatcher.encoder.UnquatedJavascriptEncoder();
-
-    var _jsHtmlEntityEncoder = new com.venscor.codesec.xsspatcher.encoder.JsHtmlEntityEncoder();
-    var _jsHtmlAttributeEncoder = new com.venscor.codesec.xsspatcher.encoder.JsHtmlAttributeEncoder();
-    var _jsCSSEncoder = new com.venscor.codesec.xsspatcher.encoder.JsCSSEncoder();
-    var _jsUrlEncoder = new com.venscor.codesec.xsspatcher.encoder.JsUrlEncoder();
-
-
-    return {
-        encodeForHtmlEntity: function (sInput) {
-            return !sInput ? null : _htmlEntityEncoder.encode(sInput);
-        },
-        encodeForHtmlAttribute: function (sInput) {
-            return !sInput ? null : _htmlAttributeEncoder.encode(sInput);
-        },
-        encodeForCSS: function (sInput) {
-            return !sInput ? null : _cssEncoder.encode(sInput);
-        },
-        encodeForUrl: function (sInput) {
-            return !sInput ? null : _urlEncoder.encode(sInput);
-        },
-        encodeForJSON: function (sInput) {
-            return !sInput ? null : _jsonEncoder.encode(sInput);
-        },
-        encodeForJavascript: function (sInput) {
-            return !sInput ? null : _javascriptEncoder.encode(sInput);
-        },
-        encodeForUnquatedJavascript: function (sInput) {
-            return !sInput ? null : _unquatedJavascriptEncoder.encode(sInput);
-        },
-
-
-        encodeForJsHtmlEntity: function (sInput) {
-            return !sInput ? null : _jsHtmlEntityEncoder.encode(sInput);
-        },
-        encodeForJsHtmlAttribute: function (sInput) {
-            return !sInput ? null : _jsHtmlAttributeEncoder.encode(sInput);
-        },
-        encodeForJsCSS: function (sInput) {
-            return !sInput ? null : _jsCSSEncoder.encode(sInput);
-        },
-        encodeForJsUrl: function (sInput) {
-            return !sInput ? null : _jsUrlEncoder.encode(sInput);
-        }
-    }
-}
-
-var $XSSEncoder = new com.venscor.codesec.xsspatcher.encoder.XSSEncoder();
-
-$namespace("com.venscor.codesec.xsspatcher.encoder")
+$namespace("com.venscor.codesec.xsspatcher.encoder");
 com.venscor.codesec.xsspatcher.encoder.JSONEncoder = function () {
     var _super = new com.venscor.codesec.xsspatcher.encoder.AbstractEncoder();
     var encodeCharsets = new Array('<', '&', '>', '(', ')', '\\');
@@ -83,7 +28,7 @@ com.venscor.codesec.xsspatcher.encoder.JSONEncoder = function () {
 }
 
 
-$namespace("com.venscor.codesec.xsspatcher.encoder")
+$namespace("com.venscor.codesec.xsspatcher.encoder");
 com.venscor.codesec.xsspatcher.encoder.JsUrlEncoder = function () {
     var urlEncoder = new com.venscor.codesec.xsspatcher.encoder.URLEncoder();
     var javascriptEncoder = new com.venscor.codesec.xsspatcher.encoder.JavascriptEncoder();
@@ -99,7 +44,7 @@ com.venscor.codesec.xsspatcher.encoder.JsUrlEncoder = function () {
 }
 
 
-$namespace("com.venscor.codesec.xsspatcher.encoder")
+$namespace("com.venscor.codesec.xsspatcher.encoder");
 com.venscor.codesec.xsspatcher.encoder.JsHtmlAttributeEncoder = function () {
     var htmlAttributeEncoder = new com.venscor.codesec.xsspatcher.encoder.HtmlAttributeEncoder();
     var javascriptEncoder = new com.venscor.codesec.xsspatcher.encoder.JavascriptEncoder();
@@ -116,7 +61,7 @@ com.venscor.codesec.xsspatcher.encoder.JsHtmlAttributeEncoder = function () {
 }
 
 
-$namespace("com.venscor.codesec.xsspatcher.encoder")
+$namespace("com.venscor.codesec.xsspatcher.encoder");
 com.venscor.codesec.xsspatcher.encoder.JsHtmlEntityEncoder = function () {
     var htmlEntityEncoder = new com.venscor.codesec.xsspatcher.encoder.HtmlEntityEncoder();
     var javascriptEncoder = new com.venscor.codesec.xsspatcher.encoder.JavascriptEncoder();
@@ -133,7 +78,7 @@ com.venscor.codesec.xsspatcher.encoder.JsHtmlEntityEncoder = function () {
 }
 
 
-$namespace("com.venscor.codesec.xsspatcher.encoder")
+$namespace("com.venscor.codesec.xsspatcher.encoder");
 com.venscor.codesec.xsspatcher.encoder.JsCSSEncoder = function () {
 
     var cssEncoder = new com.venscor.codesec.xsspatcher.encoder.CSSEncoder();
@@ -150,7 +95,7 @@ com.venscor.codesec.xsspatcher.encoder.JsCSSEncoder = function () {
     }
 }
 
-$namespace("com.venscor.codesec.xsspatcher.encoder")
+$namespace("com.venscor.codesec.xsspatcher.encoder");
 com.venscor.codesec.xsspatcher.encoder.URLEncoder = function () {
     var immuneCharsets = "#&-./0123456789=?@ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz~";
 
@@ -189,7 +134,7 @@ com.venscor.codesec.xsspatcher.encoder.URLEncoder = function () {
  * Unquated JS encode
  *
  * */
-$namespace("com.venscor.codesec.xsspatcher.encoder")
+$namespace("com.venscor.codesec.xsspatcher.encoder");
 com.venscor.codesec.xsspatcher.encoder.UnquatedJavascriptEncoder = function () {
     var _super = new com.venscor.codesec.xsspatcher.encoder.AbstractEncoder();
     var immuneCharsets = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "x");
@@ -216,7 +161,7 @@ com.venscor.codesec.xsspatcher.encoder.UnquatedJavascriptEncoder = function () {
  * JS encode
  *
  * */
-$namespace("com.venscor.codesec.xsspatcher.encoder")
+$namespace("com.venscor.codesec.xsspatcher.encoder");
 com.venscor.codesec.xsspatcher.encoder.JavascriptEncoder = function () {
     var _super = new com.venscor.codesec.xsspatcher.encoder.AbstractEncoder();
     var encodeCharsets = new Array('\"', '&', '\'', '/', '\\', '\u2028', '\u2029', '\r', '\n', '\b', '\f');
@@ -251,7 +196,7 @@ com.venscor.codesec.xsspatcher.encoder.JavascriptEncoder = function () {
  *
  * CSS Encode
  * */
-$namespace("com.venscor.codesec.xsspatcher.encoder")
+$namespace("com.venscor.codesec.xsspatcher.encoder");
 com.venscor.codesec.xsspatcher.encoder.CSSEncoder = function () {
     var _super = new com.venscor.codesec.xsspatcher.encoder.AbstractEncoder();
     var encodeCharsets = new Array('\"', '\'', '\\', '<', '&', '(', ')', '/', '>', '\u007f', '\u2028', '\u2029');
@@ -273,7 +218,7 @@ com.venscor.codesec.xsspatcher.encoder.CSSEncoder = function () {
  * HTML Attribute encode
  *
  * */
-$namespace("com.venscor.codesec.xsspatcher.encoder")
+$namespace("com.venscor.codesec.xsspatcher.encoder");
 com.venscor.codesec.xsspatcher.encoder.HtmlAttributeEncoder = function () {
     var _super = new com.venscor.codesec.xsspatcher.encoder.AbstractEncoder();
     var encodeCharsets = new Array('\u0009', '\n', '\u000C', '\r', '\u0020', '&', '<', '>', '\"', '\'', '/', '=', '`', '\u0085', '\u2028', '\u2029');
@@ -355,7 +300,62 @@ com.venscor.codesec.xsspatcher.encoder.Utils.getHex = function (c) {
     return c.charCodeAt(0).toString(16);
 }
 
+$namespace("com.venscor.codesec.xsspatcher.encoder");
+com.venscor.codesec.xsspatcher.encoder.XSSEncoder = function () {
+    var _htmlEntityEncoder = new com.venscor.codesec.xsspatcher.encoder.HtmlEntityEncoder();
+    var _htmlAttributeEncoder = new com.venscor.codesec.xsspatcher.encoder.HtmlAttributeEncoder();
+    var _cssEncoder = new com.venscor.codesec.xsspatcher.encoder.CSSEncoder();
+    var _urlEncoder = new com.venscor.codesec.xsspatcher.encoder.URLEncoder();
+    var _jsonEncoder = new com.venscor.codesec.xsspatcher.encoder.JSONEncoder();
+    var _javascriptEncoder = new com.venscor.codesec.xsspatcher.encoder.JavascriptEncoder();
+    var _unquatedJavascriptEncoder = new com.venscor.codesec.xsspatcher.encoder.UnquatedJavascriptEncoder();
 
+    var _jsHtmlEntityEncoder = new com.venscor.codesec.xsspatcher.encoder.JsHtmlEntityEncoder();
+    var _jsHtmlAttributeEncoder = new com.venscor.codesec.xsspatcher.encoder.JsHtmlAttributeEncoder();
+    var _jsCSSEncoder = new com.venscor.codesec.xsspatcher.encoder.JsCSSEncoder();
+    var _jsUrlEncoder = new com.venscor.codesec.xsspatcher.encoder.JsUrlEncoder();
+
+
+    return {
+        encodeForHtmlEntity: function (sInput) {
+            return !sInput ? null : _htmlEntityEncoder.encode(sInput);
+        },
+        encodeForHtmlAttribute: function (sInput) {
+            return !sInput ? null : _htmlAttributeEncoder.encode(sInput);
+        },
+        encodeForCSS: function (sInput) {
+            return !sInput ? null : _cssEncoder.encode(sInput);
+        },
+        encodeForUrl: function (sInput) {
+            return !sInput ? null : _urlEncoder.encode(sInput);
+        },
+        encodeForJSON: function (sInput) {
+            return !sInput ? null : _jsonEncoder.encode(sInput);
+        },
+        encodeForJavascript: function (sInput) {
+            return !sInput ? null : _javascriptEncoder.encode(sInput);
+        },
+        encodeForUnquatedJavascript: function (sInput) {
+            return !sInput ? null : _unquatedJavascriptEncoder.encode(sInput);
+        },
+
+
+        encodeForJsHtmlEntity: function (sInput) {
+            return !sInput ? null : _jsHtmlEntityEncoder.encode(sInput);
+        },
+        encodeForJsHtmlAttribute: function (sInput) {
+            return !sInput ? null : _jsHtmlAttributeEncoder.encode(sInput);
+        },
+        encodeForJsCSS: function (sInput) {
+            return !sInput ? null : _jsCSSEncoder.encode(sInput);
+        },
+        encodeForJsUrl: function (sInput) {
+            return !sInput ? null : _jsUrlEncoder.encode(sInput);
+        }
+    }
+}
+
+var $XSSEncoder = new com.venscor.codesec.xsspatcher.encoder.XSSEncoder();
 
 
 
